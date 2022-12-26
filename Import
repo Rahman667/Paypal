@@ -1,10 +1,26 @@
-({
-
-import { loadScript } from "@paypal/paypal-js";
-loadScript({ "client-id": YOUR_CLIENT_ID })
-.then((paypal) => {
-    // start to use the PayPal JS SDK script
-})
-.catch((err) => {
-    console.error("failed to load the PayPal JS SDK script", err);
-});
+<script 
+    src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&components=YOUR_COMPONENTS">
+</script>
+ 
+paypal.Buttons({
+  style: {
+    layout: 'vertical',
+    color:  'blue',
+    shape:  'rect',
+    label:  'paypal'
+  }
+}).render('#paypal-button-container');
+ <script>
+  paypal.Buttons({
+    createOrder: function(data, actions) {
+      // Set up the transaction
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: '0.01'
+          }
+        }]
+      });
+    }
+  }).render('#paypal-button-container');
+</script>
